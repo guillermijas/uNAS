@@ -1,2 +1,11 @@
-= @posts
-
+%table
+  %thead
+    %tr
+      %th Name
+      %th Link
+  %tbody
+    - @posts.map do |title, link|
+      %tr
+        %td= title
+        %td
+          %a{href: link}= link

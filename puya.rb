@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'ap'
 
 class Puya
   def self.articles
@@ -9,7 +10,7 @@ class Puya
 
     result = {}
 
-    titles.zip(links) { |k, v| result[k.to_sym] = v }
+    titles.zip(links) { |k, v| result[k.to_sym] = v.values.first unless v.nil? }
     result
   end
 
