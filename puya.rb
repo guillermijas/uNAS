@@ -18,7 +18,12 @@ class Puya
     filtered_links = []
     articles.each do |art|
       links = []
-      art.css('a img').map { |e| links << e.parent if e['src'].include? 'mega' }
+      art.css('a img').map do |e|
+        next unless e['src'].include? 'mega'
+        parent = e.parent
+        parent = parent.parent while parent.name != 'a' || parent.name == 'body'
+        links << parent unless parent.name != 'a'
+      end
       filtered_links << links.last
     end
     filtered_links
