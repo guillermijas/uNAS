@@ -2,13 +2,24 @@ require 'nokogiri'
 require 'open-uri'
 
 class Puya
-
   def self.articles
-    puyasubs = Nokogiri::HTML(open('http://puya.si'))
+    articles = Nokogiri::HTML(open('http://puya.si')).css('article')
+    titles = articles.map { |e| e.css('h2').text.strip }
+    links = get_links(articles)
+
+    result = {}
+
+    titles.zip(links) { |k, v| result[k.to_sym] = v }
+    result
   end
-  
-  def self.test
-    'hola mundo'
+
+  def self.get_links(articles)
+    filtered_links = []
+    articles.each do |art|
+      links = []
+      art.css('a img').map { |e| links << e.parent if e['src'].include? 'mega' }
+      filtered_links << links.last
+    end
+    filtered_links
   end
-  
 end

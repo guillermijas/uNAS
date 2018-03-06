@@ -3,10 +3,11 @@ require 'nokogiri'
 require './puya'
 
 get '/' do
+  @posts = Puya.articles
   haml :puya
 end
 
 get '/puya' do
-  @text = Puya.articles
+  @posts = Puya.articles
   haml :puya
 end
