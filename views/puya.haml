@@ -1,11 +1,19 @@
-%table
-  %thead
-    %tr
-      %th Name
-      %th Link
-  %tbody
-    - @posts.map do |title, link|
+.container.p-5
+  %h2= @message
+  %table.table.table-striped
+    %thead.thead-dark
       %tr
-        %td= title
-        %td
-          %a{href: link}= link
+        %th Name
+        %th Episode
+        %th Download
+    %tbody
+      - @posts.map do |title, link|
+        - name = title.to_s.split(' –')
+        %tr
+          %td= name[0..-2].join
+          %td= name[-1]
+          %td
+            %a{href: "download?link=#{link}&title=#{title}"}
+              %img{src: 'http://puya.si/wp-content/uploads/2015/06/mega_1.png', style: 'height: 30px'}
+            
+

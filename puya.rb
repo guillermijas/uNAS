@@ -2,6 +2,8 @@ require 'nokogiri'
 require 'open-uri'
 require 'ap'
 
+NAS_PATH = '/media/nas/videos'
+
 class Puya
   def self.articles
     articles = Nokogiri::HTML(open('http://puya.si')).css('article')
@@ -22,5 +24,22 @@ class Puya
       filtered_links << links.last
     end
     filtered_links
+  end
+
+  def self.download(puya_link, title)
+    if puya_link.include?('puya.si')
+      page = Nokogiri::HTML(open(puya_link))
+      ciphertext = page.at('input[@name="crypted"]')['value']
+      key = page.at('input[@name="jk"]')['value'].split("'")[1]
+      link = `echo -n '#{ciphertext}' | openssl enc -d -AES-128-CBC -nosalt -nopad -base64 -A -K #{key} -iv #{key}`
+      link.delete!("\000")
+    end
+
+    if link.include?('mega.nz')
+      system("megadl '#{link}' --path #{NAS_PATH} > /dev/null 2>&1 &")
+      "Downloading #{title}"
+    else
+      'Error'
+    end
   end
 end
