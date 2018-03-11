@@ -18,3 +18,8 @@ get '/download' do
   session[:msg] = Puya.download(params[:link], params[:title])
   redirect to('/puya')
 end
+
+post '/download' do
+  session[:msg] = Puya.download(params[:link], 'from Mega')
+  redirect to('/puya')
+end
