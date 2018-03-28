@@ -3,8 +3,8 @@ class Puya
   require 'nokogiri'
   require 'open-uri'
   require 'ap'
-  # NAS_PATH = '/media/nas/videos'
-  NAS_PATH = '/home/guillermo/Escritorio'.freeze
+  NAS_PATH = '/media/nas/videos'
+  # NAS_PATH = '/home/guillermo/Escritorio'.freeze
 
   def self.articles
     articles = Nokogiri::HTML(open('http://puya.si')).css('article')
@@ -35,8 +35,6 @@ class Puya
       page = Nokogiri::HTML(open(puya_link))
       ciphertext = page.at('input[@name="crypted"]')['value']
       key = page.at('input[@name="jk"]')['value'].split("'")[1]
-      ap ciphertext
-      ap key
       link = `echo -n '#{ciphertext}' | openssl enc -d -AES-128-CBC -nosalt -nopad -base64 -A -K #{key} -iv #{key}`
       link.delete!("\000")
     else
@@ -44,8 +42,7 @@ class Puya
     end
 
     if link.include?('mega.nz')
-      ap link
-      # system("megadl '#{link}' --path #{NAS_PATH} > /dev/null 2>&1 &")
+      system("megadl '#{link}' --path #{NAS_PATH} > /dev/null 2>&1 &")
       "Downloading #{title}"
     else
       'Error'
