@@ -58,4 +58,17 @@ class Puya
     return nil if parent.name != 'a'
     parent
   end
+
+  def self.series_chapter(puya_title)
+    title = puya_title.delete('–')
+    title.gsub!('[Final]', '')
+    if title.include?('[Batch]')
+      chapter = 'Batch'
+      title.gsub!('[Batch]', '')
+    else
+      chapter = title.split[-1]
+      title.gsub!(chapter, '')
+    end
+    [title, chapter]
+  end
 end

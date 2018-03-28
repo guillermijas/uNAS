@@ -14,10 +14,10 @@
         %th Download
     %tbody
       - @posts.map do |title, link|
-        - name = title.to_s.split(' –')
+        - series, chapter = Puya.series_chapter(title.to_s)
         %tr
-          %td= name[0..-2].join
-          %td= name[-1]
+          %td= series
+          %td= chapter
           %td
             %a{href: "download?link=#{link}&title=#{title}"}
               %img{src: 'http://puya.si/wp-content/uploads/2015/06/mega_1.png', style: 'height: 30px'}
