@@ -59,6 +59,9 @@ class Puya
   def self.series_chapter(puya_title)
     title = puya_title.delete('–')
     title.gsub!('[Final]', '')
+    title.gsub!('[V2]', '')
+    title.gsub!('[1080p]', '')
+    title.gsub!('[720p]', '')
     if title.include?('[Batch]')
       chapter = 'Batch'
       title.gsub!('[Batch]', '')
