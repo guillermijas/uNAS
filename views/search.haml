@@ -16,13 +16,19 @@
       %tr
         %th Name
         %th Episode
-        %th Download
+        %th{style: 'width: 170px'} Download
     %tbody
-      - @posts.map do |title, link|
-        - series, chapter = @puya.article_chapter(title.to_s)
+      - @posts.each do |p|
+        - link = @puya.open_and_get_link(p.css('a')[0]['href'])
+        - next if link.nil?
+        - title, chapter = @puya.article_chapter(p.css('a')[0].text)
         %tr
-          %td= series
+          %td= title
           %td= chapter
-          %td{style: 'width: 170px'}
-            %a{href: "download?link=#{link}&title=#{title}"}
-              %img{src: 'http://puya.si/wp-content/uploads/2015/06/mega_1.png', style: 'height: 30px'}
+          %td
+            - if link.include?('puya.si')
+              %a{href: "download?link=#{link}&title=#{title}"}
+                %img{src: 'http://puya.si/wp-content/uploads/2015/06/mega_1.png', style: 'height: 30px'}
+            - else
+              %a{href: link}
+                %img{src: 'https://avatars2.githubusercontent.com/u/2327604?s=400&v=4', style: 'height: 30px'}
