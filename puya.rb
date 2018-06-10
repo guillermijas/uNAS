@@ -48,7 +48,7 @@ class Puya
 
     if link.include?('mega.nz')
       system("megadl '#{link}' --path #{NAS_PATH} > /dev/null 2>&1 &")
-      "Downloading #{title}"
+      "Downloading #{link}"
     else
       'Error'
     end
