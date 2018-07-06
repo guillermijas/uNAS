@@ -1,0 +1,19 @@
+<h2><%= message %></h2>
+<br/>
+<div class="row equal">
+  <% posts.map do |post| %>
+    <div class="col-6 col-md-4 col-lg-2 mb-3 d-flex align-items-stretch">
+      <div class="card text-center" style="width: 18rem;">
+        <img class="card-img-top" src="<%= post[:image]%>" alt="<%= post[:title] %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= post[:title] %></h5>
+        </div>
+        <div class="card-footer">
+          <a href="download_puya?link=<%= post[:link] %>">
+            <img src="http://puya.si/wp-content/uploads/2015/06/mega_1.png" style="height: 30px"/>
+          </a>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,56 +1,48 @@
-GIT
-  remote: git://github.com/sinatra/sinatra.git
-  revision: 894e14fc8c37287e94e5bf6c15788865bc720e49
-  specs:
-    rack-protection (2.0.1)
-      rack
-    sinatra (2.0.1)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.1)
-      tilt (~> 2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    ast (2.4.0)
-    awesome_print (1.8.0)
-    haml (5.0.4)
-      temple (>= 0.8.0)
-      tilt
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
+    equalizer (0.0.11)
+    faraday (0.15.2)
+      multipart-post (>= 1.2, < 3)
+    ice_nine (0.11.2)
+    inflecto (0.0.2)
     mini_portile2 (2.3.0)
-    mustermann (1.0.2)
-    nokogiri (1.8.2)
+    multipart-post (2.0.0)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
-    parallel (1.12.1)
-    parser (2.5.0.2)
-      ast (~> 2.4.0)
-    powerpack (0.1.1)
-    puma (3.11.2)
-    rack (2.0.4)
-    rainbow (3.0.0)
-    rubocop (0.53.0)
-      parallel (~> 1.10)
-      parser (>= 2.5)
-      powerpack (~> 0.1)
-      rainbow (>= 2.2.2, < 4.0)
-      ruby-progressbar (~> 1.7)
-      unicode-display_width (~> 1.0, >= 1.0.1)
-    ruby-progressbar (1.9.0)
-    temple (0.8.0)
+    puma (3.11.4)
+    rack (2.0.5)
+    roda (3.9.0)
+      rack
+    telegram-bot-ruby (0.8.6.1)
+      faraday
+      inflecto
+      virtus
+    thread_safe (0.3.6)
     tilt (2.0.8)
-    unicode-display_width (1.3.0)
+    virtus (1.0.5)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
+      equalizer (~> 0.0, >= 0.0.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print
-  haml
   nokogiri
   puma
-  rubocop
-  sinatra!
+  roda
+  telegram-bot-ruby
+  tilt
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
