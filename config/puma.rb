@@ -7,8 +7,8 @@ threads 1, 4
 shared_dir = '/tmp'
 
 # Set up socket location
-# bind "unix://#{shared_dir}/puma.sock"
-bind 'tcp://0.0.0.0:3000'
+bind "unix://#{shared_dir}/puma.sock"
+# bind 'tcp://0.0.0.0:3000'
 
 # Logging
 stdout_redirect "#{shared_dir}/puma.stdout.log",
