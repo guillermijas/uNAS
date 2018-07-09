@@ -1,15 +1,28 @@
+<% param_page = page.to_i || 0 %>
 <h2><%= message %></h2>
+<br/>
+<form action="/download_mega" class="form-inline">
+  <div class="form-group" style="float: right;">
+    <input type="text" placeholder="http://mega.nz/...." class="form-control" style="width: 400px;">
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </div>
+</form>
+<div class="flexcontainer w-100">
+  <a href="puya?page=<%= param_page-1 %>" class="btn btn-primary"> ← </a>
+  <a href="puya?page=<%= param_page+1 %>" class="btn btn-primary"> → </a>
+</div>
 <br/>
 <div class="row equal">
   <% posts.map do |post| %>
+    <% next if post[:link].nil? %>
     <div class="col-6 col-md-4 col-lg-3 mb-3 d-flex align-items-stretch">
-      <div class="card text-center" style="width: 18rem;">
+      <div class="card text-center">
         <img class="card-img-top" src="<%= post[:image]%>" alt="<%= post[:title] %>">
         <div class="card-body">
           <h5 class="card-title"><%= post[:title] %></h5>
         </div>
         <div class="card-footer">
-          <a href="download_puya?link=<%= post[:link] %>">
+          <a href="download_puya<%="?link=#{post[:link]}&page=#{param_page}"%>">
             <img src="http://puya.si/wp-content/uploads/2015/06/mega_1.png" style="height: 30px"/>
           </a>
         </div>
@@ -17,3 +30,9 @@
     </div>
   <% end %>
 </div>
+<br/>
+<div class="flexcontainer w-100">
+  <a href="puya?page=<%= param_page-1 %>" class="btn btn-primary"> ← </a>
+  <a href="puya?page=<%= param_page+1 %>" class="btn btn-primary"> → </a>
+</div>
+<br/>

@@ -1,8 +1,9 @@
 # Grab links from puya.si and download the desired ones.
 class Puya
 
-  def home_articles
-    main_page_posts = Nokogiri::HTML(open('http://puya.si')).css('article')
+  def home_articles(page = 0)
+    main_page_posts = Nokogiri::HTML(open("http://puya.si?paged=#{page}"))
+                              .css('article')
     posts = []
     main_page_posts.each do |post|
       posts << decompose_post(post)

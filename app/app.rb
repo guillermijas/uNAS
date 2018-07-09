@@ -7,22 +7,28 @@ class App < Roda
     @puya = Puya.new
 
     r.root do
-      r.redirect('puya')
+      r.redirect('puya?page=1')
     end
 
     r.get do
       r.is 'puya' do
-        view('puya', locals: { posts: @puya.home_articles, message: '' })
+        page = r.params['page']
+        view('puya', locals: { posts: @puya.home_articles(page),
+                               message: '', page: page })
       end
 
       r.is 'download_puya' do
+        page = r.params['page']
         message = @puya.download_puya_link(r.params['link'])
-        view('puya', locals: { posts: @puya.home_articles, message: message })
+        view('puya', locals: { posts: @puya.home_articles(page),
+                               message: message, page: page })
       end
 
       r.is 'download_mega' do
+        page = r.params['page']
         message = @puya.download_mega_link(r.params['link'])
-        view('puya', locals: { posts: @puya.home_articles, message: message })
+        view('puya', locals: { posts: @puya.home_articles(page),
+                               message: message })
       end
 
       r.is 'search' do
