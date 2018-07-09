@@ -16,6 +16,8 @@ class Puya
     mega_link = post.css('.entry-content a[href^="http://puya.si/enc"]')
                     .to_a.last.attr('href')
     { title: post_title, image: image_src, link: mega_link }
+  rescue StandardError
+    { title: nil, image: nil, link: nil }
   end
 
   def download_puya_link(link)
