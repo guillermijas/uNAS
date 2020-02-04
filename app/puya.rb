@@ -1,9 +1,10 @@
-# Grab links from puya.si and download the desired ones.
-class Puya
+# frozen_string_literal: true
 
+# Grab links from puya.moe and download the desired ones.
+class Puya
   def home_articles(page = 0)
-    main_page_posts = Nokogiri::HTML(open("http://puya.si?paged=#{page}"))
-                              .css('article')
+    main_page_posts = Nokogiri::HTML(open("https://puya.moe?paged=#{page}"))
+                              .xpath('//article[starts-with(@id, "post-")]')
     posts = []
     main_page_posts.each do |post|
       posts << decompose_post(post)
@@ -14,7 +15,7 @@ class Puya
   def decompose_post(post)
     post_title = post.css('.entry-title a').text
     image_src = post.css('img.size-full').attr('src').value
-    mega_link = post.css('.entry-content a[href^="http://puya.si/enc"]')
+    mega_link = post.css('.entry-content a[href^="https://puya.moe/enc"]')
                     .to_a.last.attr('href')
     { title: post_title, image: image_src, link: mega_link }
   rescue StandardError
@@ -22,7 +23,8 @@ class Puya
   end
 
   def download_puya_link(link)
-    return 'Error: bad Puya link' unless link.include?('puya.si')
+    return 'Error: bad Puya link' unless link.include?('puya.moe')
+
     page = Nokogiri::HTML(open(link))
     ciphertext = page.at('input[@name="crypted"]')['value']
     key = page.at('input[@name="jk"]')['value'].split("'")[1]
@@ -33,6 +35,7 @@ class Puya
 
   def download_mega_link(link)
     return 'Error: Bad mega link' unless link.include?('mega.nz')
+
     system("megadl '#{link}' --path #{ENV['NAS_PATH']} > /dev/null 2>&1 &")
     "Downloading #{link}"
   end
@@ -41,7 +44,7 @@ class Puya
     page = 1
     posts = []
     loop do
-      link = "http://puya.si/?s=#{search_query}&paged=#{page}"
+      link = "https://puya.moe/?s=#{search_query}&paged=#{page}"
       begin
         articles = Nokogiri::HTML(open(link)).css('h2.entry-title')
       rescue OpenURI::HTTPError
@@ -65,7 +68,7 @@ class Puya
 
   def access_and_download(link)
     post = Nokogiri::HTML(open(link))
-    puya_enc_link = post.css('.entry-content a[href^="http://puya.si/enc"]')
+    puya_enc_link = post.css('.entry-content a[href^="https://puya.moe/enc"]')
                         .to_a.last.attr('href')
     download_puya_link(puya_enc_link)
   end
