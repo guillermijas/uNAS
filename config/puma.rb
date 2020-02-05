@@ -6,17 +6,14 @@ workers 1
 # Min and Max threads per worker
 threads 1, 4
 
-shared_dir = '/tmp'
+port ENV.fetch('PORT') { 3000 }
 
-# Set up socket location
+# FOR NGINX ONLY
+
+# shared_dir = '/tmp'
 # bind "unix://#{shared_dir}/puma.sock"
-bind 'tcp://0.0.0.0:3000'
-
-# Logging
 # stdout_redirect "#{shared_dir}/puma.stdout.log",
 #                 "#{shared_dir}/puma.stderr.log",
 #                 true
-
-# Set master PID and state locations
-pidfile "#{shared_dir}/puma.pid"
-state_path "#{shared_dir}/puma.state"
+# pidfile "#{shared_dir}/puma.pid"
+# state_path "#{shared_dir}/puma.state"

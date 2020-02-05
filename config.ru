@@ -3,7 +3,6 @@
 require 'rubygems'
 require 'bundler'
 require 'yaml'
-require 'telegram/bot'
 require 'roda'
 require 'tilt'
 require 'open-uri'

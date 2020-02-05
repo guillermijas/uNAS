@@ -36,8 +36,8 @@ class Puya
   def download_mega_link(link)
     return 'Error: Bad mega link' unless link.include?('mega.nz')
 
-    system("megadl '#{link}' --path #{ENV['NAS_PATH']} > /dev/null 2>&1 &")
-    "Downloading #{link}"
+    system("echo \"#{link}\" >> ./mega_queue.txt")
+    "Added link #{link} to queue"
   end
 
   def search(search_query)
