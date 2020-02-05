@@ -5,3 +5,4 @@ gem 'nokogiri' # Web scrapping
 gem 'puma' # Server
 gem 'roda' # Backend engine
 gem 'tilt' # Frontend engine
+gem 'redis' # Link storage

@@ -30,14 +30,21 @@ class Puya
     key = page.at('input[@name="jk"]')['value'].split("'")[1]
     link = `echo -n '#{ciphertext}' | openssl enc -d -AES-128-CBC -nosalt -nopad -base64 -A -K #{key} -iv #{key}`
     link.delete!("\000")
-    download_mega_link(link)
+    store_mega_link(link)
   end
 
-  def download_mega_link(link)
+  def store_mega_link(link)
     return 'Error: Bad mega link' unless link.include?('mega.nz')
 
-    system("echo \"#{link}\" >> ./mega_queue.txt")
+    $redis.set(link, link)
     "Added link #{link} to queue"
+  end
+
+  def fetch_mega_link
+    link = $redis.randomkey
+    $redis.del(link)
+
+    link
   end
 
   def search(search_query)

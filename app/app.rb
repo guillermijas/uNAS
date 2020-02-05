@@ -36,6 +36,10 @@ class App < Roda
                                  message: '', search: r.params['search'] })
       end
 
+      r.is 'fetch' do
+        view('blank', locals: { link: @puya.fetch_mega_link })
+      end
+
       r.is 'access_and_download' do
         message = @puya.access_and_download(r.params['link'])
         view('search', locals: { posts: @puya.search(r.params['search']),
