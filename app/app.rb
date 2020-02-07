@@ -37,7 +37,7 @@ class App < Roda
       end
 
       r.is 'fetch' do
-        view('blank', locals: { link: @puya.fetch_mega_link })
+        @puya.fetch_mega_link
       end
 
       r.is 'access_and_download' do

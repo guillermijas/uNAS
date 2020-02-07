@@ -36,15 +36,12 @@ class Puya
   def store_mega_link(link)
     return 'Error: Bad mega link' unless link.include?('mega.nz')
 
-    $redis.set(link, link)
+    $redis.rpush('mega_links', link)
     "Added link #{link} to queue"
   end
 
   def fetch_mega_link
-    link = $redis.randomkey
-    $redis.del(link)
-
-    link
+    $redis.lpop('mega_links')
   end
 
   def search(search_query)
