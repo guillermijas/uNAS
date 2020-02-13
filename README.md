@@ -1,6 +1,6 @@
 # uNAS
 
-This project fetches all the new posts from https://puya.moe and decripts each post 720p MEGA link.
+This project's purpose is to get all the new posts from https://puya.moe and decript each post's 720p mega.nz link.
 
 ## Run
 
