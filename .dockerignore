@@ -1,0 +1,11 @@
+.env
+.env.example
+
+.bundle
+
+.git
+.gitignore
+
+config/nginx.conf
+README.md
+Procfile

@@ -1,0 +1,46 @@
+version: '3.7'
+
+services:
+  app: &app
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        RUBY_VERSION: '2.6.5'
+    tmpfs:
+      - /tmp
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
+    environment:
+      - REDIS_URL=redis://redis:6379/
+      - RACK_ENV=production
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+    ports:
+      - 6379
+    restart: always
+    logging:
+      driver: none
+
+  runner:
+    <<: *app
+    command: /bin/sh
+
+  roda:
+    <<: *app
+    command: bundle exec puma -C config/puma.rb
+    ports:
+      - '3000:3000'
+
+volumes:
+  redis:
+  bundle:

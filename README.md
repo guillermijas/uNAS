@@ -2,7 +2,7 @@
 
 This project's purpose is to get all the new posts from https://puya.moe and decript each post's 720p mega.nz link.
 
-## Run
+## Run (Local)
 
 Install required gems with 
 
@@ -17,6 +17,12 @@ $ puma
 ```
 
 And that's all! Just go to http://localhost:3000 and start using it.
+
+## Run (Docker compose)
+
+```bash
+$ docker-compose up --build
+```
 
 ## Link decryption
 
