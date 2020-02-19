@@ -8,6 +8,7 @@ require 'tilt'
 require 'open-uri'
 require 'nokogiri'
 require 'redis'
+require 'dotenv/load'
 
 require './app/app.rb'
 require './app/puya.rb'

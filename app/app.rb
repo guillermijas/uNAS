@@ -2,9 +2,15 @@
 
 class App < Roda
   plugin :render, views: 'app/views'
+  plugin :http_auth, authenticator: ->(user, pass) { [user, pass] == [ENV['LOGIN_USER'], ENV['LOGIN_PASS']] },
+                     realm: 'Password required',
+                     schemes: 'basic',
+                     unauthorized: ->(_r) { view('401') }
 
   route do |r|
     @puya = Puya.new
+
+    http_auth
 
     r.root do
       r.redirect('puya?page=1')
