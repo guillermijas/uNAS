@@ -6,6 +6,7 @@
 .git
 .gitignore
 
+k8s
 config/nginx.conf
 README.md
 Procfile

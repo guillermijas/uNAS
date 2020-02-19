@@ -21,7 +21,7 @@ And that's all! Just go to http://localhost:3000 and start using it.
 ## Run (Docker compose)
 
 ```bash
-$ docker-compose up --build
+$ docker-compose up web 
 ```
 
 ## Link decryption

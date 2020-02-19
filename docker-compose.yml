@@ -35,7 +35,7 @@ services:
     <<: *app
     command: /bin/sh
 
-  roda:
+  web:
     <<: *app
     command: bundle exec puma -C config/puma.rb
     ports:

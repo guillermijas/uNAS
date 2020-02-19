@@ -10,13 +10,17 @@ class App < Roda
   route do |r|
     @puya = Puya.new
 
-    http_auth
-
     r.root do
       r.redirect('puya?page=1')
     end
 
+    r.get 'status' do
+      'OK'
+    end
+
     r.get do
+      http_auth
+
       r.is 'puya' do
         page = r.params['page']
         view('puya', locals: { posts: @puya.home_articles(page),
