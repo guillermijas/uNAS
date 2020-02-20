@@ -1,5 +1,4 @@
-ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION-alpine
+FROM ruby:2.6.5-alpine
 LABEL maintainer="Guillermo Mora (guillermo@cleverppc.com)"
 
 RUN apk upgrade --update-cache --available && \
