@@ -38,7 +38,7 @@ class App < Roda
         page = r.params['page']
         message = @puya.store_mega_link(r.params['link'])
         view('puya', locals: { posts: @puya.home_articles(page),
-                               message: message })
+                               message: message, page: page })
       end
 
       r.is 'search' do
