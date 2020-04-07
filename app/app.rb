@@ -36,7 +36,7 @@ class App < Roda
 
       r.is 'download_mega' do
         page = r.params['page']
-        message = @puya.download_mega_link(r.params['link'])
+        message = @puya.store_mega_link(r.params['link'])
         view('puya', locals: { posts: @puya.home_articles(page),
                                message: message })
       end
