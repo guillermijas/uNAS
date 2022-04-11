@@ -3,7 +3,7 @@
 # Grab links from puya.moe and download the desired ones.
 class Puya
   def home_articles(page = 0)
-    main_page_posts = Nokogiri::HTML(open("https://puya.moe?paged=#{page}"))
+    main_page_posts = Nokogiri::HTML(URI.open("https://puya.moe?paged=#{page}"))
                               .xpath('//article[starts-with(@id, "post-")]')
     posts = []
     main_page_posts.each do |post|
@@ -25,7 +25,7 @@ class Puya
   def download_puya_link(link)
     return 'Error: bad Puya link' unless link.include?('puya.moe')
 
-    page = Nokogiri::HTML(open(link))
+    page = Nokogiri::HTML(URI.open(link))
     ciphertext = page.at('input[@name="crypted"]')['value']
     key = page.at('input[@name="jk"]')['value'].split("'")[1]
     link = `echo -n '#{ciphertext}' | openssl enc -d -AES-128-CBC -nosalt -nopad -base64 -A -K #{key} -iv #{key}`
@@ -50,7 +50,7 @@ class Puya
     loop do
       link = "https://puya.moe/?s=#{search_query}&paged=#{page}"
       begin
-        articles = Nokogiri::HTML(open(link)).css('h2.entry-title')
+        articles = Nokogiri::HTML(URI.open(link)).css('h2.entry-title')
       rescue OpenURI::HTTPError
         break
       end
@@ -71,7 +71,7 @@ class Puya
   end
 
   def access_and_download(link)
-    post = Nokogiri::HTML(open(link))
+    post = Nokogiri::HTML(URI.open(link))
     puya_enc_link = post.css('.entry-content a[href^="https://puya.moe/enc"]')
                         .to_a.last.attr('href')
     download_puya_link(puya_enc_link)

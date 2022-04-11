@@ -2,3 +2,4 @@
 .env
 *.log
 k8s
+Gemfile.lock

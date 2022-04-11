@@ -1,5 +1,5 @@
-FROM ruby:2.6.5-alpine
-LABEL maintainer="Guillermo Mora (guillermo@cleverppc.com)"
+FROM ruby:3.1.1-alpine
+LABEL maintainer="Guillermo Mora (guillermijas@gmail.com)"
 
 RUN apk upgrade --update-cache --available && \
     apk add openssl build-base gcc libstdc++ libssl1.1 && \
@@ -9,8 +9,7 @@ RUN gem update --system && gem install bundler
 RUN bundle config set without 'development:test'  
 
 WORKDIR /app
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+ADD Gemfile* /app/
 RUN bundle install
 
 ADD . /app
